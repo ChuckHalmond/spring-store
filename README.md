@@ -1,2 +1,2 @@
-# java-spring-store
+# spring-store
  
