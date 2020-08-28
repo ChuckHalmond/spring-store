@@ -1,0 +1,124 @@
+
+/* ======================== */
+/*          Layout          */
+/* ======================== */
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    position: relative;
+    font-size: 1.6rem !important;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header,
+footer {
+    margin: 10px 0;
+    padding: 10px 0;
+}
+
+header {
+}
+
+footer {
+    border-top: 1px rgb(180, 180, 180) solid;
+    color: rgb(120, 120, 120);
+    font-style: italic;
+}
+
+a.disabled {
+    pointer-events: none;
+    color: lightgrey;
+}
+
+#main-container {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+    
+    padding: 1rem;
+}
+
+/* ======================== */
+/*          General         */
+/* ======================== */
+
+header a.active {
+    color: black; 
+}
+
+.centered-content {
+    text-align: center;
+}
+
+/* ======================== */
+/*          Forms           */
+/* ======================== */
+
+form fieldset:not(.main-fieldset) {
+    margin: 2rem 0;
+}
+
+form fieldset:not(.main-fieldset) > legend {
+    font-size: 2rem;
+    margin: 2rem 0;
+    max-width: 100%;
+}
+
+form fieldset:not(.main-fieldset) > label,
+form fieldset:not(.main-fieldset) > input {
+    margin-top: 1rem;
+    width: 300px;
+    max-width: 100%;
+}
+
+form button:not(.close) {
+    display: block;
+    padding: 0 2rem;
+    position: relative;
+    margin: 2rem auto;
+}
+
+/* ======================== */
+/*          Stores          */
+/* ======================== */
+
+.opening-hours-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.opening-hours-col {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    width: 80px;
+}
+
+.opening-hours-col:first-child {
+    line-height: 160%;
+}
+
+.opening-hours-col input[type="checkbox"] {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.opening-hours-col > * {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.opening-hours-col span {
+    color: grey;
+}

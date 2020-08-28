@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title th:text="${title}"></title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            
+            <th:block th:each="err : ${#fields.errors('${sfvm.*}')}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${err}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </th:block>
+            
+            <form th:action="@{'/store/' + ${formAction}}" th:object="${sfvm}" method="post">
+                <fieldset id="main-fieldset" th:attr="disabled=${context=='show'}">
+                    <fieldset>
+                        <legend>Store information</legend>
+
+                        <input type="hidden" name="id" th:field="*{id}" required/>
+
+                        <label for="key">Key</label>
+                        <input type="text" placeholder="Key" name="key" th:field="*{key}" required/>
+
+                        <label for="name">Name</label>
+                        <input type="text" placeholder="Name" name="name" th:field="*{name}" required/>
+
+                        <label for="email">Email</label>
+                        <input type="email" placeholder="Email" name="email" th:field="*{email}" required/> 
+                        
+                        <label for="phoneNumber">Phone number</label>
+                        <input type="text" placeholder="Phone number" name="phoneNumber" th:field="*{phoneNumber}" required/> 
+
+                        <label for="latitude">Latitude (not available)</label>
+                        <input type="text" placeholder="Latitude" name="Latitude" th:field="*{latitude}" disabled required/>
+
+                        <label for="longitude">Longitude (not available)</label>
+                        <input type="text" placeholder="Longitude" name="longitude" th:field="*{longitude}" disabled required/>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Address information</legend>
+
+                        <label for="street">Street</label>
+                        <input type="text" placeholder="Street" name="street" th:field="*{address.street}" required/>
+
+                        <label for="city">City</label>
+                        <input type="text" placeholder="City" name="city" th:field="*{address.city}" required/>
+
+                        <label for="state">State</label>
+                        <input type="text" placeholder="State" name="state" th:field="*{address.state}" required/>
+
+                        <label for="zipCode">Zip</label>
+                        <input placeholder="Zip" name="zipCode" th:field="*{address.zipCode}" required/>
+
+                        <label for="country">Country</label>
+                        <input type="text" placeholder="Country" name="country" th:field="*{address.country}" required/>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Opening hours</legend>
+                            <div class="opening-hours-grid">
+                                <div class="opening-hours-col">
+                                    <span th:text="Day"></span>
+                                    <span th:text="From"></span>
+                                    <span th:text="To"></span>
+                                    <span th:text="Closed"></span>
+                                </div>
+                                <th:block th:each="openingHours, item : *{openingHoursList}">
+                                    <div class="opening-hours-col">
+                                        <span th:text="*{openingHoursList[__${item.index}__].day}"></span>
+                                        <input type="text" placeholder="8:00 AM" th:field="*{openingHoursList[__${item.index}__].begin}"/>
+                                        <input type="text" placeholder="6:00 PM" th:field="*{openingHoursList[__${item.index}__].end}"/>
+                                        <input type="checkbox" th:field="*{openingHoursList[__${item.index}__].closed}"/>
+                                    </div>
+                                </th:block>
+                            </div>
+                    </fieldset>
+                    <button th:if="${context}!='show'" type="submit" th:text="${formSubmitName}"></button>
+                </fieldset>
+            </form>
+            <form th:if="${context}=='update'" th:action="@{'/store/delete'}" th:object="${sfvm}" method="post">
+                
+                <input type="hidden" name="id" th:field="*{id}" required/>
+                
+                <button type="submit" onclick="return confirm('You are about to delete this store.\nAre you sure?')" th:text="Delete"></button>
+            </form>
+        </section>
+    </body>
+</html>

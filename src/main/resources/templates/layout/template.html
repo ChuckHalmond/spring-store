@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE"></title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+        <script th:src="@{/js/script.js}"></script>
+        <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+    <body>
+    <div id="main-container">
+        <header th:replace="layout/header :: header"></header>
+
+        <th:block th:if="${notif}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${notif}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </th:block>
+        
+        <section layout:fragment="content">
+            <!-- ================ -->
+            <!--  View content    -->
+            <!-- ================ -->
+        </section>
+        <footer th:replace="layout/footer :: footer"></footer>
+    </div>
+    </body>
+</html>

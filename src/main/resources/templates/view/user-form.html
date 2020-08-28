@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title th:text="${title}"></title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+
+            <th:block th:each="err : ${#fields.errors('${ufvm.*}')}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${err}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </th:block>
+            
+            <form th:action="@{'/user/' + ${formAction}}" th:object="${ufvm}" method="post">
+                <fieldset>
+                    <legend>Identity information</legend>
+
+                    <input type="hidden" name="id" th:field="*{id}"/>
+
+                    <label for="firstName">Firstname</label>
+                    <input type="text" placeholder="Firstname" name="firstName" th:field="*{firstName}" required/>
+                    
+                    <label for="lastName">Lastname</label>
+                    <input type="text" placeholder="Lastname" name="lastName" th:field="*{lastName}" required/>
+                    
+                    <label for="phoneNumber">Phone number</label>
+                    <input type="text" placeholder="Phone number" name="phoneNumber" th:field="*{phoneNumber}" required/> 
+                </fieldset>
+                <fieldset>
+                    <legend>Login information</legend>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Email" name="email" th:field="*{email}" required/>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" name="password" th:field="*{password}" required/>
+                </fieldset>    
+                <fieldset>
+                    <legend>Address information</legend>
+
+                    <label for="street">Street</label>
+                    <input type="text" placeholder="Street" name="street" th:field="*{address.street}" required/>
+                    
+                    <label for="city">City</label>
+                    <input type="text" placeholder="City" name="city" th:field="*{address.city}" required/>
+                    
+                    <label for="state">State</label>
+                    <input type="text" placeholder="State" name="state" th:field="*{address.state}" required/>
+                    
+                    <label for="zipCode">Zip</label>
+                    <input placeholder="Zip" name="zipCode" th:field="*{address.zipCode}" required/>
+                    
+                    <label for="country">Country</label>
+                    <input type="text" placeholder="Country" name="country" th:field="*{address.country}" required/>
+                    
+                </fieldset>
+                <fieldset>
+                    <legend>User type</legend>
+                    
+                    <label for="userType">Please choose a user type :</label>
+                    <select th:field="*{userType}">
+                        <option th:each="userType : ${ufvm.getUserTypesList()}" th:value="${userType}" th:text="${userType.getDisplayName()}" th:selected="${userType == ufvm.userType}"></option>
+                    </select>
+                </fieldset>
+                
+                <button type="submit" th:text="${formSubmitName}"></button>
+            </form>
+            
+            <form th:if="${context}=='update'" th:action="@{'/user/delete'}" method="post">
+                <button type="submit" onclick="return confirm('You are about to delete the account your are logged in.\nAre you sure?')" th:text="Delete"></button>
+            </form>
+        </section>
+    </body>
+</html>

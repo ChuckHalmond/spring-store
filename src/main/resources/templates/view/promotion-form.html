@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title th:text="${title}"></title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            
+            <th:block th:each="err: ${#fields.errors('${pfvm.*}')}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${err}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </th:block>
+            
+            <form th:action="@{'/promotion/' + ${formAction}}" th:object="${pfvm}" method="post">
+                <fieldset id="main-fieldset" th:attr="disabled=${context=='show'}">
+                    <fieldset>
+                        <legend>Store information</legend>
+
+                        <input type="hidden" name="id" th:field="*{id}" required/>
+
+                        <label for="key">Key</label>
+                        <input type="text" placeholder="Key" name="key" th:field="*{key}" required/>
+
+                        <label for="title">Title</label>
+                        <input type="text" placeholder="Title" name="title" th:field="*{title}" required/>
+
+                        <label for="shortDescription">Short description</label>
+                        <input type="text" placeholder="Short description" name="shortDescription" th:field="*{shortDescription}" required/> 
+
+                        <label for="longDescription">Long description</label>
+                        <input type="text" placeholder="Long description" name="longDescription" th:field="*{longDescription}" required/>
+
+                        <label for="position">Position</label>
+                        <input type="text" placeholder="Position" name="position" th:field="*{position}" required/>
+                        
+                        <label for="startDate">Start date (dd/MM/YYYY)</label>
+                        <input type="text" placeholder="Start date (dd/MM/YYYY)" name="startDate" th:field="*{startDate}" required/>
+                        
+                        <label for="endDate">End date (dd/MM/YYYY)</label>
+                        <input type="text" placeholder="End date (dd/MM/YYYY)" name="endDate" th:field="*{endDate}" required/>
+                        
+                        <label for="disabled">Disabled</label>
+                        <input type="checkbox" th:field="*{disabled}"/>
+                    </fieldset>
+                    <button th:if="${context}!='show'" type="submit" th:text="${formSubmitName}"></button>
+                </fieldset>
+            </form>
+            <form th:if="${context}=='update'" th:action="@{'/promotion/delete'}" th:object="${pfvm}" method="post">
+                
+                <input type="hidden" name="id" th:field="*{id}" required/>
+                
+                <button type="submit" onclick="return confirm('You are about to delete this promotion.\nAre you sure?')" th:text="Delete"></button>
+            </form>
+        </section>
+    </body>
+</html>

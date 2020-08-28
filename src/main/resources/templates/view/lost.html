@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title>Are you lost?</title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <p>
+                <span th:text="${errorMsg}"></span><br/>
+                Don't panic, <a th:href="@{/}" title="Home">here is the way</a>.
+            </p>
+        </section>
+    </body>
+</html>

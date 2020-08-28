@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>header.html</title>
+    </head>
+    <body>
+        <header th:fragment="header">
+            <nav>
+                <a th:href="@{/}" th:class="${@urlManager.relativeUrlEquals('/')}? 'active'" title="Home">Home</a> | 
+                <a th:href="@{/user/new}" th:class="${@sessionManager.sessionIsValid()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/user/new')}? 'active'" title="Register">Register</a> | 
+                <a th:href="@{/login}" th:class="${@sessionManager.sessionIsValid()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/login')}? 'active'" title="Login">Login</a> | 
+                <a th:href="@{/user/edit}" th:class="${!@sessionManager.sessionIsValid()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/user/edit')}? 'active'" title="Account">Account</a> | 
+                <a th:href="@{/store/new}" th:class="${!@sessionManager.sessionIsValid() || !@sessionManager.getUserSession().getUserType().canEditStores()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/store/new')}? 'active'" title="New store">New store</a> |
+                <a th:href="@{/store/list}" th:class="${!@sessionManager.sessionIsValid()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/store/list')}? 'active'" title="Stores">Stores</a> |
+                <a th:href="@{/promotion/new}" th:class="${!@sessionManager.sessionIsValid() || !@sessionManager.getUserSession().getUserType().canEditPromotions()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/promotion/new')}? 'active'" title="New promotion">New promotion</a> |
+                <a th:href="@{/promotion/list}" th:class="${!@sessionManager.sessionIsValid()}? 'disabled'" th:classappend="${@urlManager.relativeUrlStartsWith('/promotion/list')}? 'active'" title="Promotions">Promotions</a> |
+                <a th:href="@{/login/logout}" th:class="${!@sessionManager.sessionIsValid()}? 'disabled'" title="Logout">Logout</a>
+            </nav>
+        </header>
+    </body>
+</html>

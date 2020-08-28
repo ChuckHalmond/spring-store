@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            
+            <th:block th:each="err : ${#fields.errors('${lfvm.*}')}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${err}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </th:block>
+                    
+            <form th:action="@{'/login'}" th:object="${lfvm}" method="post">
+                <fieldset>
+                    <legend>Login form</legend>
+
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Email" name="email" th:field="*{email}" required/>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" name="password" th:field="*{password}" required/>
+                    
+                    <button type="submit">Login</button>
+                </fieldset>
+            </form>
+        </section>
+    </body>
+</html>

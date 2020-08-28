@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title>Stores list</title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <p th:if="${slvmList.isEmpty()}">
+                No stores.
+            </p>
+            <ul th:if="${!slvmList.isEmpty()}">
+                <li th:each="slvm : ${slvmList}">
+                    <span th:text="${slvm.name}"></span>&#32;
+                    [<span th:text="${slvm.key}"></span>]&#32;
+                    <a th:href="@{'/store/show/' + ${slvm.id}}">Show</a>&#32;
+                    <th:block th:with="disabled=${
+                              @sessionManager.getUserSession().getUserType().getDisplayName() != 'Administrator' AND 
+                              (@sessionManager.getUserSession().getUserType().getDisplayName() != 'Owner' OR @sessionManager.getUserSession().getUserId() != slvm.ownerId)
+                              }">
+                        <a th:href="@{'/store/edit/' + ${slvm.id}}" th:classappend="${disabled}?'disabled'">Edit</a>
+                    </th:block>
+                </li>
+            </ul>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    layout:decorate="~{layout/template}">
+    <head>
+        <title>Promotions list</title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <p th:if="${plvmList.isEmpty()}">
+                No promotions.
+            </p>
+            <ul th:if="${!plvmList.isEmpty()}">
+                <li th:each="plvm : ${plvmList}">
+                    <span th:text="${plvm.title}"></span>&#32;
+                    [<span th:text="${plvm.key}"></span>]&#32;
+                    <a th:href="@{'/promotion/show/' + ${plvm.id}}">Show</a>&#32;
+                    <th:block th:with="disabled=${@sessionManager.getUserSession().getUserType().getDisplayName() == 'Client'}">
+                        <a th:href="@{'/promotion/edit/' + ${plvm.id}}" th:classappend="${disabled}?'disabled'">Edit</a>
+                    </th:block>
+                </li>
+            </ul>
+        </section>
+    </body>
+</html>
