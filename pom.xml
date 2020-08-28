@@ -8,6 +8,7 @@
 		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<packaging>jar</packaging>
 	<groupId>com.mygroup</groupId>
 	<artifactId>springstore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,8 +17,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-	</properties>
+    </properties>
 
 	<dependencies>
 		<dependency>
@@ -105,10 +105,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-			        <source>10</source>
-			        <target>10</target>
-			    </configuration>
 			</plugin>
 		</plugins>
 	</build>
